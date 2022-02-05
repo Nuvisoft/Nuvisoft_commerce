@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.nuvissoft.commerce</groupId>
 	<artifactId>credits-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v1.0.0</version>
 	<name>credits-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -43,6 +43,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -52,6 +53,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<!-- <version>1.0.2.RELEASE</version> -->
 		</dependency>
 	</dependencies>
 
@@ -70,6 +77,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>credits-service</finalName>
 	</build>
 
 
