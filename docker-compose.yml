@@ -1,0 +1,88 @@
+version: '3.0'
+
+services:
+
+  credits:
+    build: credits-service/.
+    container_name: credits
+    ports:
+      - "9600:9600"
+    networks:
+      - ns_net
+    depends_on:
+      - eureka-server
+      - db-mysql
+      - kafka
+
+  # users: 
+  #   build: "./service-users/"
+
+  # products:
+  #   build: "./products-services/"
+
+  eureka-server:
+    image: "eureka-server:latest"
+    container_name: eureka
+    ports:
+      - "8762:8761"
+    networks:
+      - ns_net
+
+  db-mongo:
+    image: "mongo:latest"
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - dev:/services/data
+    networks:
+      - ns_net
+
+  db-mysql:
+    image: "mysql:8"
+    container_name: mysql
+    restart: "always"
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_USER=fonse
+      - MYSQL_PASSWORD=123_fonse_dev
+      - MYSQL_DATABASE=ns_dev
+      - MYSQL_ROOT_PASSWORD=root_123
+    volumes:
+      - dev:/services/data
+    networks:
+    - ns_net
+
+  kafka:
+    image: bitnami/kafka
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - zookeeper
+    networks:
+      - ns_net
+
+  zookeeper:  
+    image: zookeeper
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      - ALLOW_ANONYMUS_LOGIN=yes
+    networks:
+      - ns_net
+
+volumes:
+  dev:
+
+networks:
+  ns_net:
+    driver: bridge
