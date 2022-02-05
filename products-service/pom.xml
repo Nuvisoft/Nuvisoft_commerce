@@ -67,8 +67,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>products-service</finalName>
 	</build>
-
 
 	<dependencyManagement>
 		<dependencies>

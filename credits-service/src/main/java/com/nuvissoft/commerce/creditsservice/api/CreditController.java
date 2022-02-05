@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nuvissoft.commerce.creditsservice.data.domain.Credit;
 import com.nuvissoft.commerce.creditsservice.services.CreditService;
+import com.nuvissoft.commerce.creditsservice.services.KafkaProducerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ public class CreditController {
 
     @Autowired
     CreditService service;
+    @Autowired
+    KafkaProducerService producerService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Credit>> getAll() {
@@ -35,12 +38,18 @@ public class CreditController {
 
     @PutMapping("/edit")
     public String editCredit(@RequestBody Credit toUpdatCredit) {
-        return "Hello Fulanito, your credit was saved done." + "your id is: " + toUpdatCredit.getId().toString();
+        String message = "Hello Fulanito, your credit was saved done." + "your id is: "
+                + toUpdatCredit.getId().toString();
+                
+        producerService.sendMessage(message);
+        return message;
     }
 
     @PostMapping("/add")
     public String addNewCredit(@RequestBody Credit toAddNewCredit) {
         Credit addedCredit = service.save(toAddNewCredit);
+
+        // producerService.sendMessage("Credit was saved!");
 
         return (addedCredit != null) ? new StringBuilder(addedCredit.getDni())
                 .append("'s credit was added done!")
