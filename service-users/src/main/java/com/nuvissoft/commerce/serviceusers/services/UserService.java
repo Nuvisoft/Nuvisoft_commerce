@@ -24,4 +24,11 @@ public class UserService implements IUserDataOperations {
         return repository.save(toAdd);
     }
 
+    @Override
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    
+
 }

@@ -10,4 +10,5 @@ public interface IUserDataOperations {
 
     public User save(User toAdd);
     
+    public User findByUsername(String username);
 }

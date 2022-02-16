@@ -7,11 +7,10 @@ import lombok.Data;
 
 @Data
 @Document
-public class Credentials {
+public class Role {
 
     @Id
-    private String _id;
-    private String username;
-    private String password;
-    
+    private String id;
+    private String name;
+
 }

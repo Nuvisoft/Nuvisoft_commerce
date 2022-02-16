@@ -8,8 +8,10 @@ import com.nuvissoft.commerce.serviceusers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,8 +32,19 @@ public class UserController {
 
     @PostMapping("/addNew")
     public ResponseEntity<User> addNewUser(@RequestBody User newUser) {
+        
+        newUser.setPassword(
+                new BCryptPasswordEncoder()
+                        .encode(newUser.getPassword()));
+
         User addedUser = userService.save(newUser);
         return new ResponseEntity<User>(addedUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByUsername")
+    public ResponseEntity<User> postMethodName(@RequestParam String username) {
+
+        return new ResponseEntity<User>(userService.findByUsername(username), HttpStatus.OK);
     }
 
 }
