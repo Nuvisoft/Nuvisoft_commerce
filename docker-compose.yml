@@ -14,14 +14,29 @@ services:
       - db-mysql
       - kafka
 
-  # users: 
-  #   build: "./service-users/"
+  users: 
+    build: "./user-service/"
+    container_name: users
+    ports:
+      - "9700:9700"
+    depends_on:
+      - eureka-server
+      - db-mongo
+      - kafka
 
-  # products:
-  #   build: "./products-services/"
+  products:
+    build: "./products-service/"
+    container_name: product
+    ports:
+      - "9800:9800"
+    depends_on:
+      - eureka-server
+      - db-mongo
+      - kafkas
 
   eureka-server:
-    image: "eureka-server:latest"
+    # image: "eureka-server:latest"
+    build: ./eureka-server-discovery/.
     container_name: eureka
     ports:
       - "8762:8761"
