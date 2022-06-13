@@ -41,7 +41,7 @@ public class CreditController {
         String message = "Hello Fulanito, your credit was saved done." + "your id is: "
                 + toUpdatCredit.getId().toString();
                 
-        producerService.sendMessage(message);
+        // producerService.sendMessage(message);
         return message;
     }
 
