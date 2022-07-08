@@ -1,24 +1,23 @@
 package com.nuvissoft.commerce.creditsservice.data.domain;
 
 import java.util.Date;
-import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 
-import org.hibernate.annotations.GenericGenerator;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.Id;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
 @Data
-@Entity
+@Document
 public class Credit {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "uuid2")
-    private UUID id;
+    private String _id;
 
     private double amount;
     private Date dueDate;

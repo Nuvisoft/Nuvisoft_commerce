@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreditService implements ICRUD<Credit, UUID> {
+public class CreditService implements ICRUD<Credit, String> {
 
     @Autowired
     private IRCredit repository;
@@ -21,10 +21,6 @@ public class CreditService implements ICRUD<Credit, UUID> {
         return repository.findAll();
     }
 
-    @Override
-    public Credit readById(UUID id) {
-        return repository.getById(id);
-    }
 
     @Override
     public Credit save(Credit entity) {
@@ -34,7 +30,7 @@ public class CreditService implements ICRUD<Credit, UUID> {
 
     @Override
     public Credit update(Credit entity) {
-        return repository.saveAndFlush(entity);
+        return repository.save(entity);
     }
 
     public List<Credit> readByDueDate(Date dueDate) {
@@ -43,5 +39,11 @@ public class CreditService implements ICRUD<Credit, UUID> {
 
     public Credit readByDni(String dni) {
         return repository.findByDni(dni);
+    }
+
+
+    @Override
+    public Credit readById(String id) {
+        return this.repository.findById(id).orElse(null);
     }
 }

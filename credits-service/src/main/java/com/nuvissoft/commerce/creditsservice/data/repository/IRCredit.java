@@ -2,14 +2,13 @@ package com.nuvissoft.commerce.creditsservice.data.repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+
+
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.nuvissoft.commerce.creditsservice.data.domain.Credit;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface IRCredit extends JpaRepository<Credit, UUID> {
-
+public interface IRCredit extends MongoRepository<Credit, String> {
     public Credit findByAmount(double amount);
 
     public List<Credit> findByDueDate(Date dueDate);

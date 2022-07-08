@@ -1,5 +1,6 @@
 package com.nuvissoft.commerce.productsservice.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.nuvissoft.commerce.productsservice.data.domain.Product;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/product")
+@CrossOrigin
 @RestController
 public class ProductController {
 
@@ -19,7 +21,18 @@ public class ProductController {
 
     @GetMapping("/all")
     public List<Product> getAllProducts() {
+
         return productService.findAll();
+
+    }
+
+    @GetMapping("/byBarcode")
+    public ResponseEntity<Product> getProductByBarcode(@RequestParam String barcode){
+        Product requestedProduct= this.productService.findByBarcode(barcode);
+        if(requestedProduct != null)
+            return new ResponseEntity<Product>(requestedProduct, HttpStatus.OK);
+        else
+            return new ResponseEntity<Product>(requestedProduct, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/add")

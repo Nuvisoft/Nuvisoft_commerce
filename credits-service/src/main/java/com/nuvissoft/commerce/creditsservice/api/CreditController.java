@@ -28,7 +28,7 @@ public class CreditController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{dni}")
+    @GetMapping("/find-dni/{dni}")
     public ResponseEntity<Credit> getByDni(@PathVariable String dni) {
         System.out.println("Inside");
         return new ResponseEntity<Credit>(
@@ -39,7 +39,7 @@ public class CreditController {
     @PutMapping("/edit")
     public String editCredit(@RequestBody Credit toUpdatCredit) {
         String message = "Hello Fulanito, your credit was saved done." + "your id is: "
-                + toUpdatCredit.getId().toString();
+                + toUpdatCredit.get_id().toString();
                 
         // producerService.sendMessage(message);
         return message;
@@ -57,4 +57,8 @@ public class CreditController {
                 : "Not saved";
     }
 
+    @DeleteMapping("/remove-dni/{dni}")
+    public String removeCredit (@PathVariable String dni){
+        return "removing credit to ".concat(dni);
+    }
 }

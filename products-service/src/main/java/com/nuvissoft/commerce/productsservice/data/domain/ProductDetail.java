@@ -12,7 +12,7 @@ public class ProductDetail {
 
     private Provider provider;
     private double costPrice;
-    private double salesPrice;
+    private double price;
     private Date dueDate;
     private double stock;
 
