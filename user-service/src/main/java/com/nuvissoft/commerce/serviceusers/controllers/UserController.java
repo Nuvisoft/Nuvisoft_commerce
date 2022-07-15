@@ -41,7 +41,7 @@ public class UserController {
         return new ResponseEntity<User>(addedUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByUsername")
+    @GetMapping("/findByUsername/")
     public ResponseEntity<User> postMethodName(@RequestParam String username) {
 
         return new ResponseEntity<User>(userService.findByUsername(username), HttpStatus.OK);

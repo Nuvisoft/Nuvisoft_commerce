@@ -3,6 +3,8 @@ package com.nuvissoft.commerce.productsservice.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import com.nuvissoft.commerce.productsservice.data.domain.Product;
 import com.nuvissoft.commerce.productsservice.web.ProductService;
 
@@ -26,8 +28,8 @@ public class ProductController {
 
     }
 
-    @GetMapping("/byBarcode")
-    public ResponseEntity<Product> getProductByBarcode(@RequestParam String barcode){
+    @GetMapping("/byBarcode/")
+    public ResponseEntity<Product> getProductByBarcode(@PathParam("barcode") String barcode){
         Product requestedProduct= this.productService.findByBarcode(barcode);
         if(requestedProduct != null)
             return new ResponseEntity<Product>(requestedProduct, HttpStatus.OK);

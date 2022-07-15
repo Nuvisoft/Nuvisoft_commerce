@@ -9,8 +9,8 @@ import lombok.Data;
 @Document
 public class Role {
 
-    @Id
-    private String id;
+    // @Id
+    // private String _id;
     private String name;
 
 }
